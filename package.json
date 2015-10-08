@@ -15,7 +15,8 @@
     "react-component"
   ],
   "peerDependencies": {
-    "react": ">= 0.13.0"
+    "react": ">= 0.13.0",
+    "exenv": "^1.2.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
