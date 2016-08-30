@@ -135,7 +135,9 @@ function removeDocumentMeta() {
 }
 
 function removeMetaDuplicated(metaItem) {
-  var item = document.querySelector(metaItem.tagName + '[name="' + metaItem.name + '"]');
+  var nameField = metaItem.hasOwnProperty('name') ? 'name' : 'property';
+  var item = document.querySelector(metaItem.tagName + '[' + nameField + '="' + metaItem[nameField] + '"]');
+
   if (item) removeNode(item);
 }
 
@@ -213,6 +215,7 @@ var DocumentMeta = _react2.default.createClass({
   displayName: 'DocumentMeta',
 
   propTypes: {
+    force: _react2.default.PropTypes.bool,
     title: _react2.default.PropTypes.string,
     description: _react2.default.PropTypes.string,
     canonical: _react2.default.PropTypes.string,
