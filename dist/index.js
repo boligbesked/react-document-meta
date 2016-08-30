@@ -134,6 +134,11 @@ function removeDocumentMeta() {
   (0, _utils.forEach)(document.querySelectorAll('head [data-rdm]'), removeNode);
 }
 
+function removeMetaDuplicated(metaItem) {
+  var item = document.querySelector(metaItem.tagName + '[name="' + metaItem.name + '"]');
+  if (item) removeNode(item);
+}
+
 function insertDocumentMetaNode(entry) {
   var tagName = entry.tagName;
 
@@ -151,6 +156,7 @@ function insertDocumentMetaNode(entry) {
 
 function insertDocumentMeta(props) {
   removeDocumentMeta();
+  if (props.hasOwnProperty('force') && props.force) (0, _utils.forEach)(getTags(props), removeMetaDuplicated);
 
   (0, _utils.forEach)(getTags(props), insertDocumentMetaNode);
 }
@@ -238,3 +244,4 @@ DocumentMetaWithSideEffect.renderAsHTML = function rewindAsHTML() {
 };
 
 exports.default = DocumentMetaWithSideEffect;
+module.exports = exports['default'];
