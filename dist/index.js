@@ -134,6 +134,13 @@ function removeDocumentMeta() {
   (0, _utils.forEach)(document.querySelectorAll('head [data-rdm]'), removeNode);
 }
 
+function removeMetaDuplicated(metaItem) {
+  var nameField = metaItem.hasOwnProperty('name') ? 'name' : 'property';
+  var item = document.querySelector(metaItem.tagName + '[' + nameField + '="' + metaItem[nameField] + '"]');
+
+  if (item) removeNode(item);
+}
+
 function insertDocumentMetaNode(entry) {
   var tagName = entry.tagName;
 
@@ -151,6 +158,7 @@ function insertDocumentMetaNode(entry) {
 
 function insertDocumentMeta(props) {
   removeDocumentMeta();
+  if (props.hasOwnProperty('force') && props.force) (0, _utils.forEach)(getTags(props), removeMetaDuplicated);
 
   (0, _utils.forEach)(getTags(props), insertDocumentMetaNode);
 }
@@ -207,6 +215,7 @@ var DocumentMeta = _react2.default.createClass({
   displayName: 'DocumentMeta',
 
   propTypes: {
+    force: _react2.default.PropTypes.bool,
     title: _react2.default.PropTypes.string,
     description: _react2.default.PropTypes.string,
     canonical: _react2.default.PropTypes.string,
@@ -238,3 +247,4 @@ DocumentMetaWithSideEffect.renderAsHTML = function rewindAsHTML() {
 };
 
 exports.default = DocumentMetaWithSideEffect;
+module.exports = exports['default'];
